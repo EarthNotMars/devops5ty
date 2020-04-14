@@ -162,8 +162,9 @@ resource "azurerm_linux_virtual_machine" "myterraformvm" {
     tags = {
         environment = "Terraform Demo"
     }
+    }
     # Create virtual machine number2
-resource "azurerm_linux_virtual_machine" "myterraformvm" {
+resource "azurerm_linux_virtual_machine" "myterraformvm_1" {
     name                  = "myVM1"
     location              = "easteu"
     resource_group_name   = azurerm_resource_group.myterraformgroup.name #16 line myterraformgroup
@@ -199,8 +200,9 @@ resource "azurerm_linux_virtual_machine" "myterraformvm" {
     tags = {
         environment = "Terraform Demo"
     }
+    }
     # Create virtual machine number 3
-resource "azurerm_linux_virtual_machine" "myterraformvm" {
+resource "azurerm_linux_virtual_machine" "myterraformv_2" {
     name                  = "myVM3"
     location              = "easteu"
     resource_group_name   = azurerm_resource_group.myterraformgroup.name #16 line myterraformgroup
