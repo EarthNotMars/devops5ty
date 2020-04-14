@@ -1,3 +1,8 @@
+#TO CHANGE
+#NO proper credential
+#disk require no standarT but standarD
+#Vm resource 2 type //_1, _2//
+
 # By VovaPfaifer for Dev-ops team5
 #terrafor code to make Resorce group .. vm
 # Configure the Microsoft Azure Provider
