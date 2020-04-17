@@ -7,10 +7,10 @@ provider "azurerm" {
     version = "~>2.0"
     features {}
 
-    subscription_id = "bbad2cdd-770f-4c73-8a90-16610f818474"
-    client_id       = "bcc5e0a0-2c8a-40c8-87ac-5becd6c94d4e"
-    client_secret   = "2ccbd88c-b2f3-4424-b345-e8aa62ac11d4"
-    tenant_id       = "de7724eb-d479-4abf-9983-ae6315c48b20"
+    subscription_id = "xxxxxxxxx" #find it there https://www.terraform.io/docs/providers/azurerm/guides/service_principal_client_secret.html
+    client_id       = "xxxxxxxxxxx"
+    client_secret   = "xxxxxxxxxxxxx"
+    tenant_id       = "bxxxxxxxxxxxxxxxxx"
 }
 
 # Create a resource group if it doesn't exist
@@ -227,5 +227,47 @@ resource "azurerm_linux_virtual_machine" "myterraformvm_3" {
     tags = {
         environment = "Terraform Demo"
     }
+}
+
+#database not tested
+resource "azurerm_sql_server" "example" {
+  name                         = "mysqlserver"
+  resource_group_name          = azurerm_resource_group.myterraformgroup.name
+  location                     = "West US"
+  version                      = "12.0"
+  administrator_login          = "4dm1n157r470r"
+  administrator_login_password = "4-v3ry-53cr37-p455w0rd"
+
+  tags = {
+    environment = "Terraform Demo"
+  }
+}
+
+resource "azurerm_storage_account" "example" {
+  name                     = "examplesa"
+  resource_group_name      = azurerm_resource_group.myterraformgroup.name
+  location                 = azurerm_resource_group.myterraformgroup.location
+  account_tier             = "Standard"
+  account_replication_type = "LRS"
+}
+
+resource "azurerm_sql_database" "example" {
+  name                = "mysqldatabase"
+  resource_group_name = azurerm_resource_group.myterraformgroup.name
+  location            = "West US"
+  server_name         = azurerm_sql_server.example.name
+
+  extended_auditing_policy {
+    storage_endpoint                        = azurerm_storage_account.example.primary_blob_endpoint
+    storage_account_access_key              = azurerm_storage_account.example.primary_access_key
+    storage_account_access_key_is_secondary = true
+    retention_in_days                       = 6
+  }
+
+
+
+  tags = {
+    environment = "Terraform Demo"
+  }
 }
 
