@@ -1,0 +1,2 @@
+[team5]
+40.112.67.53 ansible_connection=httpapi ansible_user=gitlab ansible_password=opampVOVA789
